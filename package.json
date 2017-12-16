@@ -1,0 +1,12 @@
+{
+  "name": "clever-cookie",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Michael Rhodes",
+  "license": "MIT",
+  "dependencies": {
+    "cookie": "~0.3.1",
+    "jsonwebtoken": "~8.1.0",
+    "ms": "~2.1.1"
+  }
+}
