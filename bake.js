@@ -1,9 +1,10 @@
-var merge = require('xtend')
 var cookie = require('cookie')
 var jwt = require('jsonwebtoken')
 var ms = require('ms')
-
-var secret = process.env.JWT_SECRET || 'clever-cookie'
+var merge = require('xtend')
+var secret = require('./secret')
+var serialize = cookie.serialize
+var sign = jwt.sign
 
 var defaults = {
   path: '/',
@@ -14,12 +15,8 @@ var defaults = {
 
 module.exports = bake
 
-function bake (name, payload, opts) {
+function bake (name, payload, opts, exp) {
   opts = merge(defaults, opts || {})
-
-  var token = jwt.sign(payload, secret, {
-    expiresIn: opts.maxAge
-  })
-
-  return cookie.serialize(name, token, opts)
+  exp = { expiresIn: opts.maxAge }
+  return serialize(name, sign(payload, secret, exp), opts)
 }

@@ -1,5 +1,6 @@
-var merge = require('xtend')
 var cookie = require('cookie')
+var merge = require('xtend')
+var serialize = cookie.serialize
 
 var defaults = {
   path: '/',
@@ -12,5 +13,5 @@ module.exports = eat
 
 function eat (name, opts) {
   opts = merge(defaults, opts || {})
-  return cookie.serialize(name, '', opts)
+  return serialize(name, '', opts)
 }
