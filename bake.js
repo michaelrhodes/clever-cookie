@@ -1,10 +1,8 @@
-var cookie = require('cookie')
-var jwt = require('jsonwebtoken')
 var ms = require('ms')
+var cookie = require('cookie')
 var merge = require('xtend')
-var secret = require('./secret')
+var sign = require('./token/sign')
 var serialize = cookie.serialize
-var sign = jwt.sign
 
 var defaults = {
   path: '/',
@@ -24,8 +22,8 @@ function bake (payload, name, opts, cb) {
   var synchronous = typeof cb != 'function'
 
   return synchronous ?
-    serialize(name, sign(payload, secret, exp), opt) :
-    sign(payload, secret, exp, function (err, encoded) {
+    serialize(name, sign(payload, exp), opt) :
+    sign(payload, exp, function (err, encoded) {
       err ? cb(err) : cb(null, serialize(name, encoded, opt))
     })
 }
