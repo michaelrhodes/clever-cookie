@@ -20,9 +20,12 @@ function bake (payload, name, opts, cb) {
   var opt = merge(defaults, opts || {})
   var exp = { expiresIn: opt.maxAge }
   var synchronous = typeof cb != 'function'
+  var signed = typeof payload == 'string'
 
   return synchronous ?
-    serialize(name, sign(payload, exp), opt) :
+    signed ?
+      serialize(name, payload, opt) :
+      serialize(name, sign(payload, exp), opt) :
     sign(payload, exp, function (err, encoded) {
       err ? cb(err) : cb(null, serialize(name, encoded, opt))
     })
