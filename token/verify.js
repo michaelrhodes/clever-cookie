@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken')
-var omit = require('object.omit')
+var omit = require('object/omit')
 var secret = require('./secret')
 var verify = jwt.verify
 

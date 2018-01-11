@@ -1,5 +1,5 @@
 var cookie = require('cookie')
-var merge = require('xtend')
+var extend = require('object/extend')
 var serialize = cookie.serialize
 
 var defaults = {
@@ -12,6 +12,7 @@ var defaults = {
 module.exports = eat
 
 function eat (name, opts) {
-  opts = merge(defaults, opts || {})
-  return serialize(name, '', opts)
+  return serialize(name, '', opts ?
+    extend(defaults, opts) :
+    defaults)
 }

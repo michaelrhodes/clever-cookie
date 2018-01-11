@@ -1,6 +1,6 @@
 var ms = require('ms')
 var jwt = require('jsonwebtoken')
-var merge = require('xtend')
+var extend = require('object/extend')
 var secret = require('./secret')
 var sign = jwt.sign
 
@@ -14,7 +14,7 @@ function bake (payload, opts, cb) {
   if (typeof opts == 'function')
     cb = opts, opts = null
 
-  var opt = merge(defaults, opts || {})
+  var opt = extend(defaults, opts || {})
   var synchronous = typeof cb != 'function'
 
   return synchronous ?

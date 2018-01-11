@@ -1,6 +1,6 @@
 var ms = require('ms')
 var cookie = require('cookie')
-var merge = require('xtend')
+var extend = require('object/extend')
 var sign = require('./token/sign')
 var serialize = cookie.serialize
 
@@ -17,7 +17,7 @@ function bake (payload, name, opts, cb) {
   if (typeof opts == 'function')
     cb = opts, opts = null
 
-  var opt = merge(defaults, opts || {})
+  var opt = extend(defaults, opts || {})
   var exp = { expiresIn: opt.maxAge }
   var synchronous = typeof cb != 'function'
   var signed = typeof payload == 'string'
